@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elektro Furken | Meister & Fachhandwerker seit Generationen</title>
+    <meta name="description" content="Elektro Furken aus Bremen-Vegesack. Ihr Meisterbetrieb für Elektroinstallation, Beleuchtung, Sicherheitstechnik und mehr.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1a2744;
+            --navy-light: #243456;
+            --blue: #2d5fa6;
+            --blue-light: #3a7bd5;
+            --accent: #f0a500;
+            --gray-50: #f8f9fa;
+            --gray-100: #f1f3f5;
+            --gray-200: #e9ecef;
+            --gray-400: #ced4da;
+            --gray-600: #868e96;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+            --radius: 8px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-900);
+            line-height: 1.6;
+            background: var(--white);
+        }
+
+        /* ---- NAVBAR ---- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .navbar-logo img {
+            height: 44px;
+            width: auto;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            color: var(--gray-800);
+            font-size: 0.925rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .navbar-links a:hover {
+            background: var(--gray-100);
+            color: var(--blue);
+        }
+
+        .navbar-cta {
+            background: var(--blue) !important;
+            color: var(--white) !important;
+            font-weight: 600 !important;
+            padding: 10px 22px !important;
+        }
+
+        .navbar-cta:hover {
+            background: var(--blue-light) !important;
+        }
+
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .navbar-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--gray-800);
+            margin: 6px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        /* ---- HERO ---- */
+        .hero {
+            margin-top: 72px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(45,95,166,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 24px 120px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            color: var(--accent);
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 36px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--navy);
+        }
+
+        .btn-primary:hover {
+            background: #d4920a;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--white);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image-placeholder {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: rgba(255,255,255,0.08);
+            border: 2px dashed rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.9rem;
+        }
+
+        .hero-image-placeholder svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 12px;
+            opacity: 0.4;
+        }
+
+        /* ---- TRUST BAR ---- */
+        .trust-bar {
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .trust-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 28px 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .trust-item svg {
+            width: 20px;
+            height: 20px;
+            color: var(--blue);
+            flex-shrink: 0;
+        }
+
+        /* ---- SECTIONS GENERAL ---- */
+        section {
+            padding: 100px 24px;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--blue);
+            margin-bottom: 12px;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: var(--gray-600);
+            max-width: 580px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+        }
+
+        /* ---- LEISTUNGEN ---- */
+        #leistungen {
+            background: var(--white);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 36px 28px;
+            transition: all 0.25s;
+        }
+
+        .service-card:hover {
+            border-color: var(--blue);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .service-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--blue), var(--blue-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .service-icon svg {
+            width: 26px;
+            height: 26px;
+            color: var(--white);
+        }
+
+        .service-card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            color: var(--gray-600);
+            font-size: 0.925rem;
+            line-height: 1.65;
+        }
+
+        /* ---- UEBER UNS ---- */
+        #über-uns {
+            background: var(--gray-50);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image-placeholder {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: var(--gray-200);
+            border: 2px dashed var(--gray-400);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        .about-image-placeholder svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            color: var(--gray-600);
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .stat-item strong {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--blue);
+        }
+
+        .stat-item span {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+
+        /* ---- REFERENZEN ---- */
+        #referenzen {
+            background: var(--white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 3/2;
+            background: var(--gray-100);
+            border: 2px dashed var(--gray-400);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-600);
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--blue);
+            background: var(--gray-50);
+        }
+
+        .gallery-item svg {
+            width: 36px;
+            height: 36px;
+            margin-bottom: 8px;
+            opacity: 0.4;
+        }
+
+        /* ---- KONTAKT ---- */
+        #kontakt {
+            background: var(--gray-50);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .contact-detail-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--blue);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-detail-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--white);
+        }
+
+        .contact-detail div strong {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .contact-detail div span,
+        .contact-detail div a {
+            color: var(--gray-900);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .contact-detail div a:hover {
+            color: var(--blue);
+        }
+
+        .contact-form {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 36px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+        }
+
+        .contact-form h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gray-800);
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+            background: var(--white);
+            color: var(--gray-900);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(45,95,166,0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--blue);
+            color: var(--white);
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-submit:hover {
+            background: var(--blue-light);
+        }
+
+        /* ---- MAP PLACEHOLDER ---- */
+        .map-section {
+            padding: 0;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 350px;
+            background: var(--gray-200);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .map-placeholder svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 12px;
+            opacity: 0.4;
+        }
+
+        /* ---- FOOTER ---- */
+        .footer {
+            background: var(--navy);
+            color: rgba(255,255,255,0.7);
+            padding: 60px 24px 30px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand img {
+            height: 38px;
+            margin-bottom: 16px;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 280px;
+        }
+
+        .footer h4 {
+            color: var(--white);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer ul a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer ul a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--white);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        /* ---- MOBILE MENU ---- */
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+        }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 960px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                padding: 70px 24px 80px;
+                text-align: center;
+            }
+
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-image {
+                display: none;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links {
+                position: fixed;
+                top: 0;
+                right: -300px;
+                width: 280px;
+                height: 100vh;
+                background: var(--white);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 80px 24px 24px;
+                gap: 4px;
+                box-shadow: var(--shadow-lg);
+                transition: right 0.3s ease;
+                z-index: 1001;
+            }
+
+            .navbar-links.active {
+                right: 0;
+            }
+
+            .navbar-links a {
+                width: 100%;
+                padding: 12px 16px;
+            }
+
+            .navbar-toggle {
+                display: block;
+                z-index: 1002;
+            }
+
+            .mobile-overlay.active {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: repeat(3, 1fr);
+                text-align: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#" class="navbar-logo">
+                <img src="Logo.gif" alt="Elektro Furken">
+            </a>
+            <ul class="navbar-links" id="navLinks">
+                <li><a href="#leistungen">Leistungen</a></li>
+                <li><a href="#über-uns">Über uns</a></li>
+                <li><a href="#referenzen">Referenzen</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+                <li><a href="tel:042166 26 34" class="navbar-cta">0421 / 66 26 34</a></li>
+            </ul>
+            <button class="navbar-toggle" id="navToggle" aria-label="Menü öffnen">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <h1>Ihr <span>Elektromeister</span> in Bremen-Vegesack</h1>
+                <p>Kompetente Elektroinstallation, zuverlässiger Service und persönliche Beratung &ndash; seit Generationen Ihr Partner für alle Fragen rund um die Elektrotechnik.</p>
+                <div class="hero-buttons">
+                    <a href="#kontakt" class="btn btn-primary">Kostenlos anfragen</a>
+                    <a href="#leistungen" class="btn btn-outline">Unsere Leistungen</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-placeholder">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
+                    Bild-Platzhalter: Teamfoto oder Firmengebäude
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+        <div class="trust-bar-inner">
+            <div class="trust-item">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                Meisterbetrieb
+            </div>
+            <div class="trust-item">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Seit Generationen
+            </div>
+            <div class="trust-item">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                Bremen-Vegesack
+            </div>
+            <div class="trust-item">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                Handwerkskammer Bremen
+            </div>
+        </div>
+    </div>
+
+    <!-- LEISTUNGEN -->
+    <section id="leistungen">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-label">Was wir bieten</span>
+                <h2>Unsere Leistungen</h2>
+                <p>Vom Neubau bis zur Sanierung &ndash; wir bieten Ihnen das komplette Spektrum moderner Elektrotechnik aus einer Hand.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg>
+                    </div>
+                    <h3>Elektroinstallation</h3>
+                    <p>Fachgerechte Elektroinstallationen für Neubauten, Umbauten und Sanierungen &ndash; sicher und normgerecht.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg>
+                    </div>
+                    <h3>Beleuchtungstechnik</h3>
+                    <p>Moderne Lichtkonzepte für Wohn- und Gewerberäume &ndash; energieeffizient und individuell geplant.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+                    </div>
+                    <h3>Sicherheitstechnik</h3>
+                    <p>Alarmanlagen, Zutrittskontrolle und Videoüberwachung &ndash; für Ihr sicheres Zuhause und Gewerbe.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1.001A3.75 3.75 0 0012 18z"/></svg>
+                    </div>
+                    <h3>Heizungstechnik</h3>
+                    <p>Elektrische Heizungssysteme, Wärmepumpen und Fußbodenheizung &ndash; effizient und umweltfreundlich.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.1-5.1m0 0L11.42 4.97m-5.1 5.1H21M3 21h18"/></svg>
+                    </div>
+                    <h3>Kundendienst & Reparatur</h3>
+                    <p>Schneller und zuverlässiger Service bei Störungen und Reparaturen &ndash; auch im Notfall für Sie da.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.746 3.746 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+                    </div>
+                    <h3>Prüfung & Abnahme</h3>
+                    <p>Normgerechte Anlagenprüfungen, E-Checks und Geräteprüfungen nach DGUV Vorschrift 3.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UEBER UNS -->
+    <section id="über-uns">
+        <div class="section-inner">
+            <div class="about-grid">
+                <div class="about-image-placeholder">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
+                    Bild-Platzhalter: Team / Werkstatt
+                </div>
+                <div class="about-content">
+                    <span class="section-label">Über uns</span>
+                    <h2>Meister & Fachhandwerker seit Generationen</h2>
+                    <p>Elektro Furken ist Ihr traditionsreicher Meisterbetrieb in Bremen-Vegesack. Mit handwerklicher Präzision und modernster Technik betreuen Frank und Jörg Furken Kunden in der gesamten Region.</p>
+                    <p>Als eingetragener Betrieb der Handwerkskammer Bremen stehen wir für Qualität, Zuverlässigkeit und faire Preise &ndash; bei jedem Auftrag, egal ob gross oder klein.</p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <strong>30+</strong>
+                            <span>Jahre Erfahrung</span>
+                        </div>
+                        <div class="stat-item">
+                            <strong>1000+</strong>
+                            <span>Zufriedene Kunden</span>
+                        </div>
+                        <div class="stat-item">
+                            <strong>100%</strong>
+                            <span>Meisterqualität</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REFERENZEN -->
+    <section id="referenzen">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-label">Unsere Arbeit</span>
+                <h2>Referenzen</h2>
+                <p>Ein Auszug aus unseren erfolgreich abgeschlossenen Projekten.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
+                    Projekt 1
+                </div>
+                <div class="gallery-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
+                    Projekt 2
+                </div>
+                <div class="gallery-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
+                    Projekt 3
+                </div>
+                <div class="gallery-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
+                    Projekt 4
+                </div>
+                <div class="gallery-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
+                    Projekt 5
+                </div>
+                <div class="gallery-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
+                    Projekt 6
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KONTAKT -->
+    <section id="kontakt">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-label">Sprechen Sie uns an</span>
+                <h2>Kontakt</h2>
+                <p>Wir freuen uns auf Ihre Anfrage &ndash; persönlich, telefonisch oder per E-Mail.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Elektro Furken</h3>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                        </div>
+                        <div>
+                            <strong>Adresse</strong>
+                            <span>Albrecht-Poppe-Straße 17a, 28757 Bremen</span>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                        </div>
+                        <div>
+                            <strong>Telefon</strong>
+                            <a href="tel:+4942166 26 34">0421 / 66 26 34</a>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                        </div>
+                        <div>
+                            <strong>E-Mail</strong>
+                            <a href="mailto:info@furken.de">info@furken.de</a>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18.75 12h.008v.008h-.008V12zm-8.25 0h.008v.008H10.5V12z"/></svg>
+                        </div>
+                        <div>
+                            <strong>Fax</strong>
+                            <span>0421 / 65 89 114</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Anfrage senden</h3>
+                    <form onsubmit="event.preventDefault(); alert('Demo: Nachricht wurde gesendet!');">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Name *</label>
+                                <input type="text" id="name" placeholder="Ihr Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-Mail *</label>
+                                <input type="email" id="email" placeholder="ihre@email.de" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon</label>
+                            <input type="tel" id="phone" placeholder="Ihre Telefonnummer">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Gewünschte Leistung</label>
+                            <select id="service">
+                                <option value="">Bitte wählen...</option>
+                                <option>Elektroinstallation</option>
+                                <option>Beleuchtungstechnik</option>
+                                <option>Sicherheitstechnik</option>
+                                <option>Heizungstechnik</option>
+                                <option>Kundendienst & Reparatur</option>
+                                <option>Prüfung & Abnahme</option>
+                                <option>Sonstiges</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Nachricht *</label>
+                            <textarea id="message" placeholder="Beschreiben Sie Ihr Anliegen..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Nachricht senden</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAP -->
+    <div class="map-section">
+        <div class="map-placeholder">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m0 0l3-3m-3 3l-3-3m12-3v8.25m0 0l3-3m-3 3l-3-3M3.375 4.5h17.25c.621 0 1.125.504 1.125 1.125v12.75c0 .621-.504 1.125-1.125 1.125H3.375c-.621 0-1.125-.504-1.125-1.125V5.625c0-.621.504-1.125 1.125-1.125z"/></svg>
+            Karten-Platzhalter: Google Maps Einbettung
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="Logo.gif" alt="Elektro Furken">
+                    <p>Ihr Meisterbetrieb für Elektrotechnik in Bremen-Vegesack. Zuverlässig, kompetent und fair &ndash; seit Generationen.</p>
+                </div>
+                <div>
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#leistungen">Leistungen</a></li>
+                        <li><a href="#über-uns">Über uns</a></li>
+                        <li><a href="#referenzen">Referenzen</a></li>
+                        <li><a href="#kontakt">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Leistungen</h4>
+                    <ul>
+                        <li><a href="#leistungen">Elektroinstallation</a></li>
+                        <li><a href="#leistungen">Beleuchtung</a></li>
+                        <li><a href="#leistungen">Sicherheitstechnik</a></li>
+                        <li><a href="#leistungen">Heizungstechnik</a></li>
+                        <li><a href="#leistungen">Prüfung & Abnahme</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Kontakt</h4>
+                    <ul>
+                        <li><a href="tel:+4942166 26 34">0421 / 66 26 34</a></li>
+                        <li><a href="mailto:info@furken.de">info@furken.de</a></li>
+                        <li><a href="#kontakt">Albrecht-Poppe-Str. 17a</a></li>
+                        <li><a href="#kontakt">28757 Bremen</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Elektro Furken. Alle Rechte vorbehalten.</span>
+                <div class="footer-legal">
+                    <a href="#">Impressum</a>
+                    <a href="#">Datenschutz</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll shadow
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 10);
+        });
+
+        // Mobile menu toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        const overlay = document.getElementById('mobileOverlay');
+
+        function toggleMenu() {
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        navToggle.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // Close mobile menu on link click
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Smooth scroll offset for fixed navbar
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    const offset = navbar.offsetHeight + 16;
+                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
