@@ -7,1002 +7,876 @@
     <meta name="description" content="Elektro Furken aus Bremen-Vegesack. Ihr Meisterbetrieb für Elektroinstallation, Beleuchtung, Sicherheitstechnik und mehr.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --navy: #1a2744;
-            --navy-light: #243456;
-            --blue: #2d5fa6;
-            --blue-light: #3a7bd5;
-            --accent: #f0a500;
-            --gray-50: #f8f9fa;
-            --gray-100: #f1f3f5;
-            --gray-200: #e9ecef;
-            --gray-400: #ced4da;
-            --gray-600: #868e96;
-            --gray-800: #343a40;
-            --gray-900: #212529;
-            --white: #ffffff;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
-            --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
-            --radius: 8px;
+            --white: #FFFFFF;
+            --off-white: #F7F8FA;
+            --gray-100: #EDF0F4;
+            --gray-200: #DEE2EA;
+            --gray-400: #9BA3B5;
+            --gray-500: #6E778A;
+            --gray-700: #3A4052;
+            --gray-900: #1A1F2E;
+            --navy: #1B2D50;
+            --navy-deep: #12213F;
+            --navy-light: #24406A;
+            --blue: #2B5EA7;
+            --blue-light: #3570C0;
+            --blue-muted: rgba(43,94,167,0.08);
+            --blue-muted-2: rgba(43,94,167,0.14);
+            --border: #E2E6ED;
+            --border-hover: #CBD1DB;
+            --radius: 14px;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'DM Sans', sans-serif;
             color: var(--gray-900);
-            line-height: 1.6;
             background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        a { color: inherit; text-decoration: none; }
+
+        /* ---- SCROLL PROGRESS ---- */
+        .scroll-progress {
+            position: fixed; top: 0; left: 0;
+            height: 2px;
+            background: var(--blue);
+            z-index: 200;
+            width: 0%;
         }
 
         /* ---- NAVBAR ---- */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: var(--white);
-            border-bottom: 1px solid var(--gray-200);
-            transition: box-shadow 0.3s ease;
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 0 clamp(24px, 4vw, 60px);
+            transition: background 0.4s, box-shadow 0.4s;
         }
-
-        .navbar.scrolled {
-            box-shadow: var(--shadow-md);
+        .nav.scrolled {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 1px 12px rgba(0,0,0,0.06);
         }
-
-        .navbar-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 72px;
+        .nav-inner {
+            max-width: 1300px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 76px;
         }
-
-        .navbar-logo img {
-            height: 44px;
-            width: auto;
+        .nav-logo img { height: 38px; width: auto; }
+        .nav-links {
+            display: flex; align-items: center; gap: 4px; list-style: none;
         }
-
-        .navbar-links {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            list-style: none;
+        .nav-links a {
+            font-size: 0.88rem; font-weight: 500;
+            color: rgba(255,255,255,0.7);
+            padding: 10px 18px; border-radius: 10px;
+            transition: color 0.25s; position: relative;
         }
-
-        .navbar-links a {
-            text-decoration: none;
-            color: var(--gray-800);
-            font-size: 0.925rem;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 6px;
-            transition: background 0.2s, color 0.2s;
+        .nav.scrolled .nav-links a { color: var(--gray-500); }
+        .nav-links a:hover { color: rgba(255,255,255,1); }
+        .nav.scrolled .nav-links a:hover { color: var(--gray-900); }
+        .nav-links a::after {
+            content: ''; position: absolute;
+            bottom: 6px; left: 18px; right: 18px;
+            height: 1.5px; background: var(--blue);
+            transform: scaleX(0); transition: transform 0.3s;
         }
+        .nav-links a:hover::after { transform: scaleX(1); }
 
-        .navbar-links a:hover {
-            background: var(--gray-100);
-            color: var(--blue);
-        }
-
-        .navbar-cta {
+        .nav-cta {
             background: var(--blue) !important;
             color: var(--white) !important;
             font-weight: 600 !important;
-            padding: 10px 22px !important;
+            border-radius: 10px !important;
+            padding: 10px 24px !important;
+            transition: background 0.25s, transform 0.25s, box-shadow 0.25s !important;
         }
-
-        .navbar-cta:hover {
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover {
             background: var(--blue-light) !important;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(43,94,167,0.2);
         }
 
-        .navbar-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
+        .nav-toggle {
+            display: none; background: none; border: none;
+            cursor: pointer; padding: 8px; z-index: 1002;
         }
-
-        .navbar-toggle span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--gray-800);
-            margin: 6px 0;
-            transition: 0.3s;
-            border-radius: 2px;
+        .nav-toggle span {
+            display: block; width: 26px; height: 1.5px;
+            background: var(--white); margin: 7px 0; transition: 0.3s;
         }
+        .nav.scrolled .nav-toggle span { background: var(--gray-900); }
 
-        /* ---- HERO ---- */
+        /* ---- HERO (dark) ---- */
         .hero {
-            margin-top: 72px;
-            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            min-height: 100vh;
+            display: flex; align-items: center;
+            position: relative; overflow: hidden;
+            padding: 110px clamp(24px, 4vw, 60px) 80px;
+            background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 40%, var(--navy-light) 100%);
             color: var(--white);
-            position: relative;
-            overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(45,95,166,0.3) 0%, transparent 70%);
-            border-radius: 50%;
+        .hero-grid-bg {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, black 10%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, black 10%, transparent 70%);
+        }
+
+        .hero-glow {
+            position: absolute; border-radius: 50%; pointer-events: none;
+        }
+        .hero-glow-1 {
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(43,94,167,0.15), transparent 70%);
+            top: -10%; right: -5%;
+        }
+        .hero-glow-2 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(53,112,192,0.1), transparent 70%);
+            bottom: -5%; left: 0;
         }
 
         .hero-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 100px 24px 120px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            position: relative;
+            max-width: 1300px; margin: 0 auto; width: 100%;
+            position: relative; z-index: 2;
+            display: grid; grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px; align-items: center;
         }
 
-        .hero-content h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            line-height: 1.15;
-            margin-bottom: 20px;
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-size: 0.76rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 3px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 28px;
+            opacity: 0; animation: fadeUp 0.7s ease 0.2s forwards;
+        }
+        .hero-eyebrow::before {
+            content: ''; width: 28px; height: 1px;
+            background: rgba(255,255,255,0.3);
         }
 
-        .hero-content h1 span {
-            color: var(--accent);
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .hero-content p {
-            font-size: 1.15rem;
-            line-height: 1.7;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 36px;
-            max-width: 500px;
+        .hero-title {
+            font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+            font-weight: 800; line-height: 1.08;
+            letter-spacing: -0.03em; margin-bottom: 24px;
+            opacity: 0; animation: fadeUp 0.8s ease 0.35s forwards;
+        }
+        .hero-title .accent { color: rgba(255,255,255,0.5); }
+
+        .hero-desc {
+            font-size: 1.05rem; color: rgba(255,255,255,0.55);
+            max-width: 460px; line-height: 1.8; margin-bottom: 40px;
+            opacity: 0; animation: fadeUp 0.7s ease 0.55s forwards;
         }
 
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
+        .hero-actions {
+            display: flex; gap: 14px; flex-wrap: wrap;
+            opacity: 0; animation: fadeUp 0.7s ease 0.7s forwards;
         }
 
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            border-radius: var(--radius);
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s;
-            cursor: pointer;
-            border: none;
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 16px 32px; border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.88rem; font-weight: 700;
+            border: none; cursor: pointer;
+            transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
         }
+        .btn:hover { transform: translateY(-2px); }
+        .btn svg { width: 16px; height: 16px; transition: transform 0.25s; }
+        .btn:hover svg { transform: translateX(3px); }
 
         .btn-primary {
-            background: var(--accent);
-            color: var(--navy);
+            background: var(--white); color: var(--navy);
         }
-
-        .btn-primary:hover {
-            background: #d4920a;
-            transform: translateY(-1px);
+        .btn-primary:hover { box-shadow: 0 10px 32px rgba(255,255,255,0.15); }
+        .btn-ghost {
+            background: transparent; color: rgba(255,255,255,0.8);
+            border: 1.5px solid rgba(255,255,255,0.2);
         }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--white);
+        .btn-ghost:hover {
+            border-color: rgba(255,255,255,0.5);
             background: rgba(255,255,255,0.05);
         }
 
-        .hero-image {
+        /* Hero Visual */
+        .hero-visual {
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; animation: fadeUp 1s ease 0.6s forwards;
+        }
+        .hero-orb {
+            width: 360px; height: 360px;
+            border-radius: 50%; position: relative;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hero-orb-ring {
+            position: absolute; border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .hero-orb-ring:nth-child(1) { inset: 0; }
+        .hero-orb-ring:nth-child(2) { inset: 35px; border-style: dashed; border-color: rgba(255,255,255,0.04); }
+        .hero-orb-ring:nth-child(3) { inset: 70px; border-color: rgba(43,94,167,0.2); }
+
+        .hero-orb-center {
+            width: 110px; height: 110px;
+            background: var(--blue);
+            border-radius: 30px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 24px 60px rgba(43,94,167,0.35);
+            animation: floatSlow 6s ease-in-out infinite;
+            position: relative; z-index: 2;
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .hero-orb-center svg { width: 48px; height: 48px; color: white; }
+
+        .hero-orb-node {
+            position: absolute; width: 46px; height: 46px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hero-orb-node svg { width: 20px; height: 20px; color: rgba(255,255,255,0.45); }
+        .hero-orb-node:nth-child(5) { top: -4px; left: 50%; margin-left: -23px; }
+        .hero-orb-node:nth-child(6) { top: 50%; right: -4px; margin-top: -23px; }
+        .hero-orb-node:nth-child(7) { bottom: -4px; left: 50%; margin-left: -23px; }
+        .hero-orb-node:nth-child(8) { top: 50%; left: -4px; margin-top: -23px; }
+        .hero-orb-node:nth-child(9) { top: 14%; right: 14%; }
+        .hero-orb-node:nth-child(10) { bottom: 14%; left: 14%; }
+
+        /* ---- MARQUEE (light) ---- */
+        .marquee-section {
+            border-bottom: 1px solid var(--border);
+            overflow: hidden; background: var(--white);
+        }
+        .marquee-track {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            animation: marquee 35s linear infinite;
+            width: max-content; will-change: transform;
         }
-
-        .hero-image-placeholder {
-            width: 100%;
-            aspect-ratio: 4/3;
-            background: rgba(255,255,255,0.08);
-            border: 2px dashed rgba(255,255,255,0.2);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255,255,255,0.4);
-            font-size: 0.9rem;
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
         }
-
-        .hero-image-placeholder svg {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 12px;
-            opacity: 0.4;
+        .marquee-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 22px 44px; font-size: 0.85rem; font-weight: 500;
+            color: var(--gray-500); white-space: nowrap;
         }
-
-        /* ---- TRUST BAR ---- */
-        .trust-bar {
-            background: var(--gray-50);
-            border-bottom: 1px solid var(--gray-200);
+        .marquee-sep {
+            color: var(--blue); font-size: 0.45rem; opacity: 0.3;
+            display: flex; align-items: center;
         }
+        .marquee-item svg { width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; opacity: 0.6; }
 
-        .trust-bar-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 28px 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 48px;
-            flex-wrap: wrap;
-        }
-
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--gray-600);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .trust-item svg {
-            width: 20px;
-            height: 20px;
-            color: var(--blue);
-            flex-shrink: 0;
-        }
-
-        /* ---- SECTIONS GENERAL ---- */
+        /* ---- SECTION SYSTEM ---- */
         section {
-            padding: 100px 24px;
+            padding: clamp(80px, 10vw, 130px) clamp(24px, 4vw, 60px);
+            position: relative;
+        }
+        .section-inner { max-width: 1300px; margin: 0 auto; }
+
+        .section-tag {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-size: 0.72rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 3px;
+            color: var(--blue); margin-bottom: 16px;
+        }
+        .section-tag::before {
+            content: ''; width: 24px; height: 1.5px;
+            background: var(--blue); opacity: 0.5;
         }
 
-        .section-inner {
-            max-width: 1200px;
-            margin: 0 auto;
+        .section-number {
+            position: absolute;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(6rem, 14vw, 14rem);
+            font-weight: 800;
+            color: rgba(0,0,0,0.02);
+            top: 0; right: clamp(24px, 4vw, 60px);
+            line-height: 1; pointer-events: none; user-select: none;
         }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-label {
-            display: inline-block;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--blue);
-            margin-bottom: 12px;
-        }
-
-        .section-header h2 {
-            font-size: 2.2rem;
-            font-weight: 700;
+        .section-heading {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 700; letter-spacing: -0.02em;
+            line-height: 1.15; margin-bottom: 16px;
             color: var(--navy);
-            margin-bottom: 16px;
+        }
+        .section-desc {
+            color: var(--gray-500); font-size: 1rem;
+            max-width: 500px; line-height: 1.8;
         }
 
-        .section-header p {
-            color: var(--gray-600);
-            max-width: 580px;
-            margin: 0 auto;
-            font-size: 1.05rem;
+        /* ---- REVEAL ---- */
+        .rv {
+            opacity: 0; transform: translateY(36px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        .rv.vis { opacity: 1; transform: translateY(0); }
+        .rv-l { opacity: 0; transform: translateX(-50px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+        .rv-l.vis { opacity: 1; transform: translateX(0); }
+        .rv-r { opacity: 0; transform: translateX(50px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+        .rv-r.vis { opacity: 1; transform: translateX(0); }
 
-        /* ---- LEISTUNGEN ---- */
-        #leistungen {
+        .d1 { transition-delay: 0.06s; } .d2 { transition-delay: 0.12s; }
+        .d3 { transition-delay: 0.18s; } .d4 { transition-delay: 0.24s; }
+        .d5 { transition-delay: 0.30s; } .d6 { transition-delay: 0.36s; }
+
+        /* ---- LEISTUNGEN (light gray bg) ---- */
+        #leistungen { background: var(--off-white); }
+
+        .bento {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 14px; margin-top: 56px;
+        }
+        .bento-card {
             background: var(--white);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
-        }
-
-        .service-card {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
             padding: 36px 28px;
-            transition: all 0.25s;
+            position: relative; overflow: hidden;
+            transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
         }
-
-        .service-card:hover {
-            border-color: var(--blue);
-            box-shadow: var(--shadow-lg);
+        .bento-card:hover {
+            border-color: var(--border-hover);
             transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
         }
 
-        .service-icon {
-            width: 52px;
-            height: 52px;
-            background: linear-gradient(135deg, var(--blue), var(--blue-light));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .service-icon svg {
-            width: 26px;
-            height: 26px;
+        .bento-card.featured {
+            grid-column: span 2; grid-row: span 2;
+            padding: 44px 36px;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            background: var(--navy);
+            border-color: var(--navy);
             color: var(--white);
         }
-
-        .service-card h3 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 10px;
+        .bento-card.featured:hover {
+            box-shadow: 0 16px 48px rgba(27,45,80,0.2);
+            border-color: var(--navy-light);
         }
 
-        .service-card p {
-            color: var(--gray-600);
-            font-size: 0.925rem;
-            line-height: 1.65;
+        .bento-num {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 4.5rem; font-weight: 800;
+            color: rgba(0,0,0,0.03);
+            position: absolute; top: 12px; right: 20px;
+            line-height: 1; transition: color 0.4s;
+        }
+        .bento-card:hover .bento-num { color: rgba(43,94,167,0.06); }
+        .bento-card.featured .bento-num {
+            font-size: 8rem; top: 16px; right: 28px;
+            color: rgba(255,255,255,0.05);
+        }
+        .bento-card.featured:hover .bento-num { color: rgba(255,255,255,0.08); }
+
+        .bento-icon {
+            width: 52px; height: 52px;
+            background: var(--blue-muted);
+            border: 1px solid var(--blue-muted-2);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 22px; transition: background 0.3s, border-color 0.3s;
+        }
+        .bento-card:hover .bento-icon {
+            background: var(--blue-muted-2);
+        }
+        .bento-card.featured .bento-icon {
+            width: 64px; height: 64px; margin-bottom: 28px;
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.15);
+        }
+        .bento-icon svg { width: 24px; height: 24px; color: var(--blue); }
+        .bento-card.featured .bento-icon svg { width: 30px; height: 30px; color: rgba(255,255,255,0.9); }
+
+        .bento-card h3 {
+            font-size: 1.1rem; font-weight: 700;
+            color: var(--navy); margin-bottom: 8px;
+        }
+        .bento-card.featured h3 { font-size: 1.4rem; color: var(--white); }
+        .bento-card p { color: var(--gray-500); font-size: 0.88rem; line-height: 1.7; }
+        .bento-card.featured p { font-size: 0.95rem; max-width: 380px; color: rgba(255,255,255,0.6); }
+
+        .bento-arrow {
+            position: absolute; bottom: 24px; right: 24px;
+            width: 34px; height: 34px;
+            border-radius: 9px; border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transform: translateX(-6px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .bento-card:hover .bento-arrow { opacity: 1; transform: translateX(0); }
+        .bento-card.featured .bento-arrow { border-color: rgba(255,255,255,0.15); }
+        .bento-arrow svg { width: 14px; height: 14px; color: var(--blue); }
+        .bento-card.featured .bento-arrow svg { color: rgba(255,255,255,0.6); }
+
+        /* ---- ABOUT (white bg) ---- */
+        #ueber-uns { background: var(--white); }
+
+        .about-layout {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 80px; align-items: center;
         }
 
-        /* ---- UEBER UNS ---- */
-        #über-uns {
-            background: var(--gray-50);
+        .about-media { position: relative; }
+        .about-media-main {
+            width: 100%; aspect-ratio: 4/3;
+            background: var(--off-white);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
         }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .about-image-placeholder {
-            width: 100%;
-            aspect-ratio: 4/3;
-            background: var(--gray-200);
-            border: 2px dashed var(--gray-400);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray-600);
-            font-size: 0.9rem;
-        }
-
-        .about-image-placeholder svg {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 12px;
+        .about-media-main::before {
+            content: ''; position: absolute; inset: 0;
+            background-image:
+                linear-gradient(var(--gray-100) 1px, transparent 1px),
+                linear-gradient(90deg, var(--gray-100) 1px, transparent 1px);
+            background-size: 40px 40px;
             opacity: 0.5;
         }
+        .about-media-main svg { width: 64px; height: 64px; color: var(--gray-400); margin-bottom: 12px; }
+        .about-media-main span { color: var(--gray-400); font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; }
 
-        .about-content h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--navy);
-            margin-bottom: 20px;
-        }
-
-        .about-content p {
-            color: var(--gray-600);
-            margin-bottom: 16px;
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-
-        .about-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 32px;
-            padding-top: 32px;
-            border-top: 1px solid var(--gray-200);
-        }
-
-        .stat-item strong {
-            display: block;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--blue);
-        }
-
-        .stat-item span {
-            font-size: 0.85rem;
-            color: var(--gray-600);
-        }
-
-        /* ---- REFERENZEN ---- */
-        #referenzen {
+        .about-float-card {
+            position: absolute; bottom: -24px; right: -24px;
             background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px; padding: 20px 28px;
+            display: flex; align-items: center; gap: 16px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
         }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .gallery-item {
-            aspect-ratio: 3/2;
-            background: var(--gray-100);
-            border: 2px dashed var(--gray-400);
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray-600);
-            font-size: 0.85rem;
-            transition: all 0.2s;
-        }
-
-        .gallery-item:hover {
-            border-color: var(--blue);
-            background: var(--gray-50);
-        }
-
-        .gallery-item svg {
-            width: 36px;
-            height: 36px;
-            margin-bottom: 8px;
-            opacity: 0.4;
-        }
-
-        /* ---- KONTAKT ---- */
-        #kontakt {
-            background: var(--gray-50);
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 48px;
-        }
-
-        .contact-info h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 20px;
-        }
-
-        .contact-detail {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            margin-bottom: 24px;
-        }
-
-        .contact-detail-icon {
-            width: 42px;
-            height: 42px;
-            background: var(--blue);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .contact-detail-icon svg {
-            width: 20px;
-            height: 20px;
-            color: var(--white);
-        }
-
-        .contact-detail div strong {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--gray-600);
-            font-weight: 500;
-            margin-bottom: 2px;
-        }
-
-        .contact-detail div span,
-        .contact-detail div a {
-            color: var(--gray-900);
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .contact-detail div a:hover {
-            color: var(--blue);
-        }
-
-        .contact-form {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 36px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-200);
-        }
-
-        .contact-form h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 24px;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--gray-800);
-            margin-bottom: 6px;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid var(--gray-200);
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            transition: border-color 0.2s;
-            background: var(--white);
-            color: var(--gray-900);
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--blue);
-            box-shadow: 0 0 0 3px rgba(45,95,166,0.1);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 110px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-
-        .btn-submit {
-            width: 100%;
-            background: var(--blue);
-            color: var(--white);
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: background 0.2s;
-            font-family: inherit;
-        }
-
-        .btn-submit:hover {
-            background: var(--blue-light);
-        }
-
-        /* ---- MAP PLACEHOLDER ---- */
-        .map-section {
-            padding: 0;
-        }
-
-        .map-placeholder {
-            width: 100%;
-            height: 350px;
-            background: var(--gray-200);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray-600);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--gray-200);
-        }
-
-        .map-placeholder svg {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 12px;
-            opacity: 0.4;
-        }
-
-        /* ---- FOOTER ---- */
-        .footer {
+        .about-float-card-icon {
+            width: 48px; height: 48px;
             background: var(--navy);
-            color: rgba(255,255,255,0.7);
-            padding: 60px 24px 30px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
         }
-
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
+        .about-float-card-icon svg { width: 22px; height: 22px; color: var(--white); }
+        .about-float-card div strong {
+            display: block;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.4rem; font-weight: 800; color: var(--navy);
         }
+        .about-float-card div span { font-size: 0.75rem; color: var(--gray-500); }
 
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 48px;
-            margin-bottom: 48px;
+        .about-text .section-heading { margin-bottom: 24px; }
+        .about-text p { color: var(--gray-500); font-size: 0.95rem; line-height: 1.85; margin-bottom: 14px; }
+
+        .stats-row {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 28px; margin-top: 40px; padding-top: 40px;
+            border-top: 1px solid var(--border);
         }
+        .stat { text-align: center; }
+        .stat-val {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2.4rem; font-weight: 800;
+            color: var(--navy); line-height: 1; margin-bottom: 6px;
+        }
+        .stat-val .counter-suffix { color: var(--blue); }
+        .stat-label { font-size: 0.8rem; color: var(--gray-500); }
 
-        .footer-brand img {
-            height: 38px;
-            margin-bottom: 16px;
+        /* ---- REFERENZEN (light gray bg) ---- */
+        #referenzen { background: var(--off-white); }
+
+        .gallery {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 14px; margin-top: 56px;
+        }
+        .gallery-card {
+            aspect-ratio: 3/2;
             background: var(--white);
-            padding: 6px 12px;
-            border-radius: 6px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            color: var(--gray-400); font-size: 0.78rem;
+            transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
+            cursor: pointer;
+        }
+        .gallery-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+        }
+        .gallery-card svg {
+            width: 28px; height: 28px; margin-bottom: 8px;
+            opacity: 0.3; transition: opacity 0.3s, color 0.3s;
+        }
+        .gallery-card:hover svg { opacity: 0.5; color: var(--blue); }
+        .gallery-card span {
+            text-transform: uppercase; letter-spacing: 2px;
+            font-size: 0.7rem; font-weight: 600;
+            transition: color 0.3s;
+        }
+        .gallery-card:hover span { color: var(--gray-500); }
+
+        /* ---- KONTAKT (white bg) ---- */
+        #kontakt { background: var(--white); }
+
+        .contact-layout {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 56px; margin-top: 56px;
+        }
+        .contact-info-list h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 28px; color: var(--navy); }
+
+        .contact-item {
+            display: flex; align-items: flex-start; gap: 16px;
+            padding: 18px; border-radius: 14px; margin-bottom: 6px;
+            transition: background 0.25s;
+        }
+        .contact-item:hover { background: var(--off-white); }
+        .contact-item-icon {
+            width: 46px; height: 46px;
+            background: var(--blue-muted);
+            border: 1px solid var(--blue-muted-2);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; transition: background 0.3s, border-color 0.3s;
+        }
+        .contact-item:hover .contact-item-icon {
+            background: var(--blue); border-color: var(--blue);
+        }
+        .contact-item-icon svg { width: 20px; height: 20px; color: var(--blue); transition: color 0.3s; }
+        .contact-item:hover .contact-item-icon svg { color: white; }
+        .contact-item div strong {
+            display: block; font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--gray-400); font-weight: 600; margin-bottom: 4px;
+        }
+        .contact-item div span,
+        .contact-item div a { color: var(--gray-900); font-size: 0.95rem; font-weight: 600; }
+        .contact-item div a:hover { color: var(--blue); }
+
+        .contact-form-card {
+            background: var(--off-white);
+            border: 1px solid var(--border);
+            border-radius: 20px; padding: 40px;
+            position: relative; overflow: hidden;
+        }
+        .contact-form-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 2px; background: var(--navy);
+        }
+        .contact-form-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 28px; color: var(--navy); }
+
+        .fg { margin-bottom: 20px; }
+        .fg label {
+            display: block; font-size: 0.75rem; font-weight: 600;
+            color: var(--gray-500); margin-bottom: 7px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .fg input, .fg textarea, .fg select {
+            width: 100%; padding: 14px 16px;
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: 11px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.92rem; color: var(--gray-900);
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        .fg input::placeholder, .fg textarea::placeholder { color: var(--gray-400); }
+        .fg input:focus, .fg textarea:focus, .fg select:focus {
+            outline: none; border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(43,94,167,0.08);
+        }
+        .fg textarea { resize: vertical; min-height: 110px; }
+        .fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+        .btn-form {
+            width: 100%; padding: 16px;
+            background: var(--navy);
+            color: white; border: none; border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.92rem; font-weight: 700;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+        }
+        .btn-form:hover {
+            background: var(--navy-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 32px rgba(27,45,80,0.18);
         }
 
-        .footer-brand p {
-            font-size: 0.9rem;
-            line-height: 1.7;
-            max-width: 280px;
+        /* ---- MAP ---- */
+        .map-wrap { position: relative; }
+        .map-wrap iframe {
+            width: 100%; height: 380px; border: none; display: block;
+            filter: grayscale(0.4) contrast(1.05);
+            transition: filter 0.5s;
         }
+        .map-wrap:hover iframe { filter: grayscale(0) contrast(1); }
 
+        /* ---- FOOTER (dark navy) ---- */
+        .footer {
+            background: var(--navy-deep);
+            color: rgba(255,255,255,0.55);
+            padding: 72px clamp(24px, 4vw, 60px) 28px;
+        }
+        .footer-inner { max-width: 1300px; margin: 0 auto; }
+        .footer-grid {
+            display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr;
+            gap: 48px; margin-bottom: 56px;
+        }
+        .footer-brand img {
+            height: 32px; margin-bottom: 18px;
+            background: rgba(255,255,255,0.92);
+            padding: 5px 10px; border-radius: 6px;
+        }
+        .footer-brand p { font-size: 0.85rem; line-height: 1.8; color: rgba(255,255,255,0.4); max-width: 280px; }
         .footer h4 {
-            color: var(--white);
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.72rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2px;
+            color: rgba(255,255,255,0.7); margin-bottom: 22px;
         }
-
-        .footer ul {
-            list-style: none;
-        }
-
-        .footer ul li {
-            margin-bottom: 10px;
-        }
-
+        .footer ul { list-style: none; }
+        .footer ul li { margin-bottom: 10px; }
         .footer ul a {
-            color: rgba(255,255,255,0.6);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
+            font-size: 0.85rem; color: rgba(255,255,255,0.4);
+            transition: color 0.25s, transform 0.25s; display: inline-block;
         }
-
-        .footer ul a:hover {
-            color: var(--white);
-        }
-
+        .footer ul a:hover { color: rgba(255,255,255,0.9); transform: translateX(3px); }
         .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            font-size: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 22px;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 14px;
+            font-size: 0.78rem; color: rgba(255,255,255,0.3);
         }
+        .footer-legal { display: flex; gap: 20px; }
+        .footer-legal a { color: rgba(255,255,255,0.3); transition: color 0.25s; }
+        .footer-legal a:hover { color: rgba(255,255,255,0.8); }
 
-        .footer-bottom a {
-            color: rgba(255,255,255,0.5);
-            text-decoration: none;
-            transition: color 0.2s;
+        /* ---- BACK TO TOP ---- */
+        .btt {
+            position: fixed; bottom: 28px; right: 28px;
+            width: 44px; height: 44px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 90;
+            opacity: 0; transform: translateY(16px);
+            transition: opacity 0.3s, transform 0.3s, background 0.25s, border-color 0.25s, box-shadow 0.25s;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         }
+        .btt.vis { opacity: 1; transform: translateY(0); }
+        .btt:hover { background: var(--navy); border-color: var(--navy); }
+        .btt svg { width: 16px; height: 16px; color: var(--gray-500); transition: color 0.25s; }
+        .btt:hover svg { color: white; }
 
-        .footer-bottom a:hover {
-            color: var(--white);
+        /* ---- MOBILE ---- */
+        .mob-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.4); z-index: 99;
+            opacity: 0; transition: opacity 0.3s;
         }
+        .mob-overlay.active { opacity: 1; }
 
-        .footer-legal {
-            display: flex;
-            gap: 24px;
-        }
-
-        /* ---- MOBILE MENU ---- */
-        .mobile-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 999;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .mobile-overlay.active {
-            opacity: 1;
-        }
-
-        /* ---- RESPONSIVE ---- */
-        @media (max-width: 960px) {
-            .hero-inner {
-                grid-template-columns: 1fr;
-                padding: 70px 24px 80px;
-                text-align: center;
-            }
-
-            .hero-content p {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .hero-image {
-                display: none;
-            }
-
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+        @media (max-width: 1024px) {
+            .hero-inner { grid-template-columns: 1fr; text-align: center; }
+            .hero-desc { margin: 0 auto 40px; }
+            .hero-actions { justify-content: center; }
+            .hero-visual { display: none; }
+            .bento { grid-template-columns: 1fr 1fr; }
+            .bento-card.featured { grid-column: span 2; grid-row: span 1; }
+            .about-layout { grid-template-columns: 1fr; gap: 48px; }
+            .contact-layout { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 768px) {
-            .navbar-links {
-                position: fixed;
-                top: 0;
-                right: -300px;
-                width: 280px;
-                height: 100vh;
+            .nav-links {
+                position: fixed; top: 0; right: -300px;
+                width: 280px; height: 100vh;
                 background: var(--white);
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 80px 24px 24px;
-                gap: 4px;
-                box-shadow: var(--shadow-lg);
-                transition: right 0.3s ease;
-                z-index: 1001;
+                border-left: 1px solid var(--border);
+                flex-direction: column; align-items: flex-start;
+                padding: 80px 24px 24px; gap: 4px;
+                transition: right 0.3s ease; z-index: 1001;
             }
+            .nav-links.active { right: 0; }
+            .nav-links a { width: 100%; padding: 14px 16px; color: var(--gray-500) !important; }
+            .nav-links a:hover { color: var(--gray-900) !important; }
+            .nav-toggle { display: block; }
+            .mob-overlay.active { display: block; }
+            .bento { grid-template-columns: 1fr; }
+            .bento-card.featured { grid-column: span 1; }
+            .gallery { grid-template-columns: 1fr 1fr; }
+            .fg-row { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .stats-row { text-align: center; }
+            .stat-val { font-size: 1.8rem; }
+            .hero-title { font-size: 2.2rem; }
+            .section-number { display: none; }
+            .about-float-card {
+                position: relative; bottom: auto; right: auto;
+                margin-top: 14px; display: inline-flex;
+            }
+            section { padding: 64px 20px; }
+        }
 
-            .navbar-links.active {
-                right: 0;
-            }
-
-            .navbar-links a {
-                width: 100%;
-                padding: 12px 16px;
-            }
-
-            .navbar-toggle {
-                display: block;
-                z-index: 1002;
-            }
-
-            .mobile-overlay.active {
-                display: block;
-            }
-
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .about-stats {
-                grid-template-columns: repeat(3, 1fr);
-                text-align: center;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-            }
+        @media (max-width: 480px) {
+            .hero { min-height: auto; padding-top: 100px; }
+            .hero-title { font-size: 1.9rem; }
+            .contact-form-card { padding: 28px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVIGATION -->
-    <nav class="navbar" id="navbar">
-        <div class="navbar-inner">
-            <a href="#" class="navbar-logo">
-                <img src="Logo.gif" alt="Elektro Furken">
-            </a>
-            <ul class="navbar-links" id="navLinks">
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo"><img src="Logo.gif" alt="Elektro Furken"></a>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#leistungen">Leistungen</a></li>
-                <li><a href="#über-uns">Über uns</a></li>
+                <li><a href="#ueber-uns">Über uns</a></li>
                 <li><a href="#referenzen">Referenzen</a></li>
                 <li><a href="#kontakt">Kontakt</a></li>
-                <li><a href="tel:042166 26 34" class="navbar-cta">0421 / 66 26 34</a></li>
+                <li><a href="tel:042166 26 34" class="nav-cta">0421 / 66 26 34</a></li>
             </ul>
-            <button class="navbar-toggle" id="navToggle" aria-label="Menü öffnen">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <button class="nav-toggle" id="navToggle" aria-label="Menü"><span></span><span></span><span></span></button>
         </div>
     </nav>
-
-    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mob-overlay" id="mobOverlay"></div>
 
     <!-- HERO -->
     <section class="hero">
+        <div class="hero-grid-bg"></div>
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
         <div class="hero-inner">
-            <div class="hero-content">
-                <h1>Ihr <span>Elektromeister</span> in Bremen-Vegesack</h1>
-                <p>Kompetente Elektroinstallation, zuverlässiger Service und persönliche Beratung &ndash; seit Generationen Ihr Partner für alle Fragen rund um die Elektrotechnik.</p>
-                <div class="hero-buttons">
-                    <a href="#kontakt" class="btn btn-primary">Kostenlos anfragen</a>
-                    <a href="#leistungen" class="btn btn-outline">Unsere Leistungen</a>
+            <div>
+                <div class="hero-eyebrow">Meisterbetrieb seit Generationen</div>
+                <h1 class="hero-title">Ihr <span class="accent">Elektromeister</span> in Bremen-Vegesack</h1>
+                <p class="hero-desc">Kompetente Elektroinstallation, zuverlässiger Service und persönliche Beratung &ndash; seit Generationen Ihr Partner für alle Fragen rund um die Elektrotechnik.</p>
+                <div class="hero-actions">
+                    <a href="#kontakt" class="btn btn-primary">
+                        Kostenlos anfragen
+                        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                    </a>
+                    <a href="#leistungen" class="btn btn-ghost">Unsere Leistungen</a>
                 </div>
             </div>
-            <div class="hero-image">
-                <div class="hero-image-placeholder">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
-                    Bild-Platzhalter: Teamfoto oder Firmengebäude
+            <div class="hero-visual">
+                <div class="hero-orb">
+                    <div class="hero-orb-ring"></div>
+                    <div class="hero-orb-ring"></div>
+                    <div class="hero-orb-ring"></div>
+                    <div class="hero-orb-center">
+                        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+                    </div>
+                    <div class="hero-orb-node"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg></div>
+                    <div class="hero-orb-node"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg></div>
+                    <div class="hero-orb-node"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/></svg></div>
+                    <div class="hero-orb-node"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.1-5.1m0 0L11.42 4.97m-5.1 5.1H21M3 21h18"/></svg></div>
+                    <div class="hero-orb-node"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.746 3.746 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg></div>
+                    <div class="hero-orb-node"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- TRUST BAR -->
-    <div class="trust-bar">
-        <div class="trust-bar-inner">
-            <div class="trust-item">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
-                Meisterbetrieb
-            </div>
-            <div class="trust-item">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                Seit Generationen
-            </div>
-            <div class="trust-item">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
-                Bremen-Vegesack
-            </div>
-            <div class="trust-item">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
-                Handwerkskammer Bremen
-            </div>
+    <!-- MARQUEE -->
+    <div class="marquee-section">
+        <div class="marquee-track">
+            <div class="marquee-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>Meisterbetrieb</div><div class="marquee-sep">&#9670;</div>
+            <div class="marquee-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Seit Generationen</div><div class="marquee-sep">&#9670;</div>
+            <div class="marquee-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>Bremen-Vegesack</div><div class="marquee-sep">&#9670;</div>
+            <div class="marquee-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>Handwerkskammer Bremen</div><div class="marquee-sep">&#9670;</div>
+            <div class="marquee-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>Elektroinstallation</div><div class="marquee-sep">&#9670;</div>
+            <div class="marquee-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.746 3.746 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>100% Meisterqualität</div><div class="marquee-sep">&#9670;</div>
+            <!-- Duplicate for seamless loop -->
+            <div class="marquee-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>Meisterbetrieb</div><div class="marquee-sep">&#9670;</div>
+            <div class="marquee-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Seit Generationen</div><div class="marquee-sep">&#9670;</div>
+            <div class="marquee-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>Bremen-Vegesack</div><div class="marquee-sep">&#9670;</div>
+            <div class="marquee-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>Handwerkskammer Bremen</div><div class="marquee-sep">&#9670;</div>
+            <div class="marquee-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>Elektroinstallation</div><div class="marquee-sep">&#9670;</div>
+            <div class="marquee-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.746 3.746 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>100% Meisterqualität</div><div class="marquee-sep">&#9670;</div>
         </div>
     </div>
 
     <!-- LEISTUNGEN -->
     <section id="leistungen">
+        <div class="section-number">01</div>
         <div class="section-inner">
-            <div class="section-header">
-                <span class="section-label">Was wir bieten</span>
-                <h2>Unsere Leistungen</h2>
-                <p>Vom Neubau bis zur Sanierung &ndash; wir bieten Ihnen das komplette Spektrum moderner Elektrotechnik aus einer Hand.</p>
+            <div class="rv">
+                <div class="section-tag">Was wir bieten</div>
+                <h2 class="section-heading">Unsere Leistungen</h2>
+                <p class="section-desc">Vom Neubau bis zur Sanierung &ndash; wir bieten Ihnen das komplette Spektrum moderner Elektrotechnik aus einer Hand.</p>
             </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg>
-                    </div>
+            <div class="bento">
+                <div class="bento-card featured rv d1">
+                    <div class="bento-num">01</div>
+                    <div class="bento-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg></div>
                     <h3>Elektroinstallation</h3>
-                    <p>Fachgerechte Elektroinstallationen für Neubauten, Umbauten und Sanierungen &ndash; sicher und normgerecht.</p>
+                    <p>Fachgerechte Elektroinstallationen für Neubauten, Umbauten und Sanierungen &ndash; sicher, normgerecht und mit höchster Präzision ausgeführt.</p>
+                    <div class="bento-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg></div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg>
-                    </div>
-                    <h3>Beleuchtungstechnik</h3>
-                    <p>Moderne Lichtkonzepte für Wohn- und Gewerberäume &ndash; energieeffizient und individuell geplant.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
-                    </div>
-                    <h3>Sicherheitstechnik</h3>
-                    <p>Alarmanlagen, Zutrittskontrolle und Videoüberwachung &ndash; für Ihr sicheres Zuhause und Gewerbe.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1.001A3.75 3.75 0 0012 18z"/></svg>
-                    </div>
-                    <h3>Heizungstechnik</h3>
-                    <p>Elektrische Heizungssysteme, Wärmepumpen und Fußbodenheizung &ndash; effizient und umweltfreundlich.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.1-5.1m0 0L11.42 4.97m-5.1 5.1H21M3 21h18"/></svg>
-                    </div>
-                    <h3>Kundendienst & Reparatur</h3>
-                    <p>Schneller und zuverlässiger Service bei Störungen und Reparaturen &ndash; auch im Notfall für Sie da.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.746 3.746 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
-                    </div>
-                    <h3>Prüfung & Abnahme</h3>
-                    <p>Normgerechte Anlagenprüfungen, E-Checks und Geräteprüfungen nach DGUV Vorschrift 3.</p>
-                </div>
+                <div class="bento-card rv d2"><div class="bento-num">02</div><div class="bento-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg></div><h3>Beleuchtungstechnik</h3><p>Moderne Lichtkonzepte für Wohn- und Gewerberäume &ndash; energieeffizient und individuell geplant.</p><div class="bento-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg></div></div>
+                <div class="bento-card rv d3"><div class="bento-num">03</div><div class="bento-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg></div><h3>Sicherheitstechnik</h3><p>Alarmanlagen, Zutrittskontrolle und Videoüberwachung &ndash; für Ihr sicheres Zuhause und Gewerbe.</p><div class="bento-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg></div></div>
+                <div class="bento-card rv d4"><div class="bento-num">04</div><div class="bento-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1.001A3.75 3.75 0 0012 18z"/></svg></div><h3>Heizungstechnik</h3><p>Elektrische Heizungssysteme, Wärmepumpen und Fußbodenheizung &ndash; effizient und umweltfreundlich.</p><div class="bento-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg></div></div>
+                <div class="bento-card rv d5"><div class="bento-num">05</div><div class="bento-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.1-5.1m0 0L11.42 4.97m-5.1 5.1H21M3 21h18"/></svg></div><h3>Kundendienst & Reparatur</h3><p>Schneller und zuverlässiger Service bei Störungen &ndash; auch im Notfall für Sie da.</p><div class="bento-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg></div></div>
+                <div class="bento-card rv d6"><div class="bento-num">06</div><div class="bento-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.746 3.746 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg></div><h3>Prüfung & Abnahme</h3><p>Normgerechte Anlagenprüfungen, E-Checks und Geräteprüfungen nach DGUV Vorschrift 3.</p><div class="bento-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg></div></div>
             </div>
         </div>
     </section>
 
     <!-- UEBER UNS -->
-    <section id="über-uns">
+    <section id="ueber-uns">
+        <div class="section-number">02</div>
         <div class="section-inner">
-            <div class="about-grid">
-                <div class="about-image-placeholder">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
-                    Bild-Platzhalter: Team / Werkstatt
+            <div class="about-layout">
+                <div class="about-media rv-l">
+                    <div class="about-media-main">
+                        <svg fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+                        <span>Ihr Team vor Ort</span>
+                    </div>
+                    <div class="about-float-card">
+                        <div class="about-float-card-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg></div>
+                        <div><strong>30+ Jahre</strong><span>Erfahrung in Bremen</span></div>
+                    </div>
                 </div>
-                <div class="about-content">
-                    <span class="section-label">Über uns</span>
-                    <h2>Meister & Fachhandwerker seit Generationen</h2>
+                <div class="about-text rv-r">
+                    <div class="section-tag">Über uns</div>
+                    <h2 class="section-heading">Meister & Fachhandwerker seit Generationen</h2>
                     <p>Elektro Furken ist Ihr traditionsreicher Meisterbetrieb in Bremen-Vegesack. Mit handwerklicher Präzision und modernster Technik betreuen Frank und Jörg Furken Kunden in der gesamten Region.</p>
                     <p>Als eingetragener Betrieb der Handwerkskammer Bremen stehen wir für Qualität, Zuverlässigkeit und faire Preise &ndash; bei jedem Auftrag, egal ob gross oder klein.</p>
-                    <div class="about-stats">
-                        <div class="stat-item">
-                            <strong>30+</strong>
-                            <span>Jahre Erfahrung</span>
-                        </div>
-                        <div class="stat-item">
-                            <strong>1000+</strong>
-                            <span>Zufriedene Kunden</span>
-                        </div>
-                        <div class="stat-item">
-                            <strong>100%</strong>
-                            <span>Meisterqualität</span>
-                        </div>
+                    <div class="stats-row">
+                        <div class="stat rv d1"><div class="stat-val"><span class="counter" data-target="30">0</span><span class="counter-suffix">+</span></div><div class="stat-label">Jahre Erfahrung</div></div>
+                        <div class="stat rv d2"><div class="stat-val"><span class="counter" data-target="1000">0</span><span class="counter-suffix">+</span></div><div class="stat-label">Zufriedene Kunden</div></div>
+                        <div class="stat rv d3"><div class="stat-val"><span class="counter" data-target="100">0</span><span class="counter-suffix">%</span></div><div class="stat-label">Meisterqualität</div></div>
                     </div>
                 </div>
             </div>
@@ -1011,227 +885,117 @@
 
     <!-- REFERENZEN -->
     <section id="referenzen">
+        <div class="section-number">03</div>
         <div class="section-inner">
-            <div class="section-header">
-                <span class="section-label">Unsere Arbeit</span>
-                <h2>Referenzen</h2>
-                <p>Ein Auszug aus unseren erfolgreich abgeschlossenen Projekten.</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
-                    Projekt 1
-                </div>
-                <div class="gallery-item">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
-                    Projekt 2
-                </div>
-                <div class="gallery-item">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
-                    Projekt 3
-                </div>
-                <div class="gallery-item">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
-                    Projekt 4
-                </div>
-                <div class="gallery-item">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
-                    Projekt 5
-                </div>
-                <div class="gallery-item">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
-                    Projekt 6
-                </div>
+            <div class="rv"><div class="section-tag">Unsere Arbeit</div><h2 class="section-heading">Referenzen</h2><p class="section-desc">Ein Auszug aus unseren erfolgreich abgeschlossenen Projekten.</p></div>
+            <div class="gallery">
+                <div class="gallery-card rv d1"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg><span>Projekt 1</span></div>
+                <div class="gallery-card rv d2"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg><span>Projekt 2</span></div>
+                <div class="gallery-card rv d3"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg><span>Projekt 3</span></div>
+                <div class="gallery-card rv d4"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg><span>Projekt 4</span></div>
+                <div class="gallery-card rv d5"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg><span>Projekt 5</span></div>
+                <div class="gallery-card rv d6"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg><span>Projekt 6</span></div>
             </div>
         </div>
     </section>
 
     <!-- KONTAKT -->
     <section id="kontakt">
+        <div class="section-number">04</div>
         <div class="section-inner">
-            <div class="section-header">
-                <span class="section-label">Sprechen Sie uns an</span>
-                <h2>Kontakt</h2>
-                <p>Wir freuen uns auf Ihre Anfrage &ndash; persönlich, telefonisch oder per E-Mail.</p>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info">
+            <div class="rv"><div class="section-tag">Sprechen Sie uns an</div><h2 class="section-heading">Kontakt</h2><p class="section-desc">Wir freuen uns auf Ihre Anfrage &ndash; persönlich, telefonisch oder per E-Mail.</p></div>
+            <div class="contact-layout">
+                <div class="contact-info-list rv-l">
                     <h3>Elektro Furken</h3>
-                    <div class="contact-detail">
-                        <div class="contact-detail-icon">
-                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
-                        </div>
-                        <div>
-                            <strong>Adresse</strong>
-                            <span>Albrecht-Poppe-Straße 17a, 28757 Bremen</span>
-                        </div>
-                    </div>
-                    <div class="contact-detail">
-                        <div class="contact-detail-icon">
-                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
-                        </div>
-                        <div>
-                            <strong>Telefon</strong>
-                            <a href="tel:+4942166 26 34">0421 / 66 26 34</a>
-                        </div>
-                    </div>
-                    <div class="contact-detail">
-                        <div class="contact-detail-icon">
-                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
-                        </div>
-                        <div>
-                            <strong>E-Mail</strong>
-                            <a href="mailto:info@furken.de">info@furken.de</a>
-                        </div>
-                    </div>
-                    <div class="contact-detail">
-                        <div class="contact-detail-icon">
-                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18.75 12h.008v.008h-.008V12zm-8.25 0h.008v.008H10.5V12z"/></svg>
-                        </div>
-                        <div>
-                            <strong>Fax</strong>
-                            <span>0421 / 65 89 114</span>
-                        </div>
-                    </div>
+                    <div class="contact-item"><div class="contact-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg></div><div><strong>Adresse</strong><span>Albrecht-Poppe-Straße 17a, 28757 Bremen</span></div></div>
+                    <div class="contact-item"><div class="contact-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg></div><div><strong>Telefon</strong><a href="tel:+4942166 26 34">0421 / 66 26 34</a></div></div>
+                    <div class="contact-item"><div class="contact-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg></div><div><strong>E-Mail</strong><a href="mailto:info@furken.de">info@furken.de</a></div></div>
+                    <div class="contact-item"><div class="contact-item-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18.75 12h.008v.008h-.008V12zm-8.25 0h.008v.008H10.5V12z"/></svg></div><div><strong>Fax</strong><span>0421 / 65 89 114</span></div></div>
                 </div>
-                <div class="contact-form">
+                <div class="contact-form-card rv-r">
                     <h3>Anfrage senden</h3>
                     <form onsubmit="event.preventDefault(); alert('Demo: Nachricht wurde gesendet!');">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Name *</label>
-                                <input type="text" id="name" placeholder="Ihr Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">E-Mail *</label>
-                                <input type="email" id="email" placeholder="ihre@email.de" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Telefon</label>
-                            <input type="tel" id="phone" placeholder="Ihre Telefonnummer">
-                        </div>
-                        <div class="form-group">
-                            <label for="service">Gewünschte Leistung</label>
-                            <select id="service">
-                                <option value="">Bitte wählen...</option>
-                                <option>Elektroinstallation</option>
-                                <option>Beleuchtungstechnik</option>
-                                <option>Sicherheitstechnik</option>
-                                <option>Heizungstechnik</option>
-                                <option>Kundendienst & Reparatur</option>
-                                <option>Prüfung & Abnahme</option>
-                                <option>Sonstiges</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Nachricht *</label>
-                            <textarea id="message" placeholder="Beschreiben Sie Ihr Anliegen..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn-submit">Nachricht senden</button>
+                        <div class="fg-row"><div class="fg"><label for="name">Name *</label><input type="text" id="name" placeholder="Ihr Name" required></div><div class="fg"><label for="email">E-Mail *</label><input type="email" id="email" placeholder="ihre@email.de" required></div></div>
+                        <div class="fg"><label for="phone">Telefon</label><input type="tel" id="phone" placeholder="Ihre Telefonnummer"></div>
+                        <div class="fg"><label for="service">Gewünschte Leistung</label><select id="service"><option value="">Bitte wählen...</option><option>Elektroinstallation</option><option>Beleuchtungstechnik</option><option>Sicherheitstechnik</option><option>Heizungstechnik</option><option>Kundendienst & Reparatur</option><option>Prüfung & Abnahme</option><option>Sonstiges</option></select></div>
+                        <div class="fg"><label for="message">Nachricht *</label><textarea id="message" placeholder="Beschreiben Sie Ihr Anliegen..." required></textarea></div>
+                        <button type="submit" class="btn-form">Nachricht senden</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- MAP -->
-    <div class="map-section">
-        <div class="map-placeholder">
-            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m0 0l3-3m-3 3l-3-3m12-3v8.25m0 0l3-3m-3 3l-3-3M3.375 4.5h17.25c.621 0 1.125.504 1.125 1.125v12.75c0 .621-.504 1.125-1.125 1.125H3.375c-.621 0-1.125-.504-1.125-1.125V5.625c0-.621.504-1.125 1.125-1.125z"/></svg>
-            Karten-Platzhalter: Google Maps Einbettung
-        </div>
+    <div class="map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2383.4!2d8.6178!3d53.1731!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b12737c16d77bf%3A0x4263df27bd176524!2sAlbrecht-Poppe-Stra%C3%9Fe%2017A%2C%2028757%20Bremen!5e0!3m2!1sde!2sde!4v1710000000000!5m2!1sde!2sde" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Standort Elektro Furken"></iframe>
     </div>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-inner">
             <div class="footer-grid">
-                <div class="footer-brand">
-                    <img src="Logo.gif" alt="Elektro Furken">
-                    <p>Ihr Meisterbetrieb für Elektrotechnik in Bremen-Vegesack. Zuverlässig, kompetent und fair &ndash; seit Generationen.</p>
-                </div>
-                <div>
-                    <h4>Navigation</h4>
-                    <ul>
-                        <li><a href="#leistungen">Leistungen</a></li>
-                        <li><a href="#über-uns">Über uns</a></li>
-                        <li><a href="#referenzen">Referenzen</a></li>
-                        <li><a href="#kontakt">Kontakt</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Leistungen</h4>
-                    <ul>
-                        <li><a href="#leistungen">Elektroinstallation</a></li>
-                        <li><a href="#leistungen">Beleuchtung</a></li>
-                        <li><a href="#leistungen">Sicherheitstechnik</a></li>
-                        <li><a href="#leistungen">Heizungstechnik</a></li>
-                        <li><a href="#leistungen">Prüfung & Abnahme</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Kontakt</h4>
-                    <ul>
-                        <li><a href="tel:+4942166 26 34">0421 / 66 26 34</a></li>
-                        <li><a href="mailto:info@furken.de">info@furken.de</a></li>
-                        <li><a href="#kontakt">Albrecht-Poppe-Str. 17a</a></li>
-                        <li><a href="#kontakt">28757 Bremen</a></li>
-                    </ul>
-                </div>
+                <div class="footer-brand"><img src="Logo.gif" alt="Elektro Furken"><p>Ihr Meisterbetrieb für Elektrotechnik in Bremen-Vegesack. Zuverlässig, kompetent und fair &ndash; seit Generationen.</p></div>
+                <div><h4>Navigation</h4><ul><li><a href="#leistungen">Leistungen</a></li><li><a href="#ueber-uns">Über uns</a></li><li><a href="#referenzen">Referenzen</a></li><li><a href="#kontakt">Kontakt</a></li></ul></div>
+                <div><h4>Leistungen</h4><ul><li><a href="#leistungen">Elektroinstallation</a></li><li><a href="#leistungen">Beleuchtung</a></li><li><a href="#leistungen">Sicherheitstechnik</a></li><li><a href="#leistungen">Heizungstechnik</a></li><li><a href="#leistungen">Prüfung & Abnahme</a></li></ul></div>
+                <div><h4>Kontakt</h4><ul><li><a href="tel:+4942166 26 34">0421 / 66 26 34</a></li><li><a href="mailto:info@furken.de">info@furken.de</a></li><li><a href="#kontakt">Albrecht-Poppe-Str. 17a</a></li><li><a href="#kontakt">28757 Bremen</a></li></ul></div>
             </div>
-            <div class="footer-bottom">
-                <span>&copy; 2026 Elektro Furken. Alle Rechte vorbehalten.</span>
-                <div class="footer-legal">
-                    <a href="#">Impressum</a>
-                    <a href="#">Datenschutz</a>
-                </div>
-            </div>
+            <div class="footer-bottom"><span>&copy; 2026 Elektro Furken. Alle Rechte vorbehalten.</span><div class="footer-legal"><a href="#">Impressum</a><a href="#">Datenschutz</a></div></div>
         </div>
     </footer>
 
+    <button class="btt" id="btt" aria-label="Nach oben"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"/></svg></button>
+
     <script>
-        // Navbar scroll shadow
-        const navbar = document.getElementById('navbar');
+    (function() {
+        const nav = document.getElementById('nav');
+        const prog = document.getElementById('scrollProgress');
+        const btt = document.getElementById('btt');
+
         window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 10);
-        });
+            nav.classList.toggle('scrolled', scrollY > 40);
+            const h = document.documentElement.scrollHeight - innerHeight;
+            if (h > 0) prog.style.width = (scrollY / h * 100) + '%';
+            btt.classList.toggle('vis', scrollY > 500);
+        }, { passive: true });
 
-        // Mobile menu toggle
-        const navToggle = document.getElementById('navToggle');
-        const navLinks = document.getElementById('navLinks');
-        const overlay = document.getElementById('mobileOverlay');
+        btt.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
 
-        function toggleMenu() {
-            navLinks.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-
-        navToggle.addEventListener('click', toggleMenu);
+        const toggle = document.getElementById('navToggle');
+        const links = document.getElementById('navLinks');
+        const overlay = document.getElementById('mobOverlay');
+        function toggleMenu() { links.classList.toggle('active'); overlay.classList.toggle('active'); }
+        toggle.addEventListener('click', toggleMenu);
         overlay.addEventListener('click', toggleMenu);
+        links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { if (links.classList.contains('active')) toggleMenu(); }));
 
-        // Close mobile menu on link click
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (navLinks.classList.contains('active')) {
-                    toggleMenu();
-                }
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                const t = document.querySelector(this.getAttribute('href'));
+                if (t) { e.preventDefault(); scrollTo({ top: t.getBoundingClientRect().top + scrollY - nav.offsetHeight - 16, behavior: 'smooth' }); }
             });
         });
 
-        // Smooth scroll offset for fixed navbar
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    e.preventDefault();
-                    const offset = navbar.offsetHeight + 16;
-                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                }
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+        }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+        document.querySelectorAll('.rv, .rv-l, .rv-r').forEach(el => obs.observe(el));
+
+        const cObs = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target, target = +el.dataset.target;
+                let cur = 0;
+                const step = Math.max(target / 45, 1);
+                (function tick() {
+                    cur += step;
+                    if (cur >= target) { el.textContent = target; return; }
+                    el.textContent = Math.floor(cur);
+                    requestAnimationFrame(tick);
+                })();
+                cObs.unobserve(el);
             });
-        });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.counter').forEach(c => cObs.observe(c));
+    })();
     </script>
-
 </body>
 </html>
